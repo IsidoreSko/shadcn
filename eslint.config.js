@@ -16,4 +16,7 @@ export default [
       "react/react-in-jsx-scope": 0, // Désactiver cette règle, car React n'a plus besoin d'être importé explicitement
     },
   },
+  {
+    ignore: ["tailwind.config.js"],
+  },
 ];

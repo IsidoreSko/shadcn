@@ -1,7 +1,16 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -43,9 +52,9 @@ export default {
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
-      // fontFamily: {
-      //   sans: ["var(--font-sans)", ...fontFamily.sans],
-      // },
+      fontFamily: {
+        sans: ["inter"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -62,5 +71,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

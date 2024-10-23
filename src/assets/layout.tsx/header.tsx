@@ -5,14 +5,23 @@ import Select from "../../components/select";
 
 const Header = () => {
   return (
-    <div className="flex items-center gap-9 p-7">
-      <Select />
-      <Link />
-      <div className="ml-auto flex gap-3">
-        <Input />
+    <header className="flex items-center gap-4 p-3 m-auto max-w-8xl">
+      <Select>
+        <div className="rounded-full bg-gradient-to-r from-zinc-800 to-zinc-200 size-4"></div>
+        <p className="ml-7 mr-9">Alicia Koch</p>
+      </Select>
+      <Link href="#" isCurrent>
+        Overview
+      </Link>
+      <Link href="#">Customers</Link>
+      <Link href="#">Products</Link>
+      <Link href="#">Settings</Link>
+
+      <div className="flex gap-3 ml-auto">
+        <Input placeholder="Shearch..." />
         <Avatar />
       </div>
-    </div>
+    </header>
   );
 };
 

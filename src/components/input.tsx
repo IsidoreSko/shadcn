@@ -1,10 +1,17 @@
-const Input = () => {
+import { ComponentPropsWithoutRef } from "react";
+
+export type InputProps = ComponentPropsWithoutRef<"input">;
+
+const Input = ({ className, ...props }: InputProps) => {
   return (
     <input
-      type="text"
-      placeholder="Search"
-      className="mt-2 h-8 rounded-lg border border-border bg-background p-2"
+      {...props}
+      className={
+        "px-4 py-2 bg-background focus:outline-none focus:border-foreground placeholder:text-foreground/50 border border-border rounded-md text-foreground" +
+        className
+      }
     />
   );
 };
+
 export default Input;

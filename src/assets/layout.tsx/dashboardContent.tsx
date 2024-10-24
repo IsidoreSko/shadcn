@@ -1,11 +1,46 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, CreditCard, DollarSign, User } from "lucide-react";
 import Avatar from "../../components/avatar";
+
+// import {
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   CardTitle,
+// } from "../../components/card";
+
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/card";
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+const chartData = [
+  { date: "2024-01-01", value: 6000 },
+  { date: "2024-02-01", value: 500 },
+  { date: "2024-03-01", value: 6000 },
+  { date: "2024-04-01", value: 5500 },
+  { date: "2024-05-01", value: 4000 },
+  { date: "2024-06-01", value: 1000 },
+  { date: "2024-07-01", value: 3000 },
+  { date: "2024-08-01", value: 5000 },
+  { date: "2024-09-01", value: 5000 },
+  { date: "2024-10-01", value: 4500 },
+  { date: "2024-11-01", value: 2500 },
+  { date: "2024-12-01", value: 5000 },
+];
+
+const chartConfig = {
+  value: {
+    label: "Amount",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
 
 export const DashboardContent = () => {
   return (
@@ -60,7 +95,46 @@ export const DashboardContent = () => {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64" />
+            <ChartContainer
+              config={chartConfig}
+              className="min-h-[200px] w-full"
+            >
+              <BarChart accessibilityLayer data={chartData}>
+                <ChartTooltip content={<ChartTooltipContent />} />
+
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => {
+                    const date = new Date(value);
+                    const monthName = new Intl.DateTimeFormat("en-US", {
+                      month: "short",
+                    }).format(date);
+                    return monthName;
+                  }}
+                />
+                <YAxis
+                  dataKey="value"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => {
+                    return new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      minimumFractionDigits: 0,
+                    }).format(value);
+                  }}
+                />
+
+                <ChartLegend content={<ChartLegendContent />} />
+                <CartesianGrid vertical={false} />
+                <Bar dataKey="value" fill="var(--color-value)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+            {/* <div className="h-64" /> */}
           </CardContent>
         </Card>
         <Card className="lg:flex-[1]">
@@ -121,6 +195,7 @@ const SalesLine = ({
         {new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
+          minimumFractionDigits: 0,
         }).format(amount)}
       </p>
     </div>
